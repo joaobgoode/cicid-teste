@@ -18,5 +18,7 @@ jobs:
 
     - name: Build and Push Docker image
       run: |
-        docker build -t ${{ secrets.DOCKER_USERNAME }}/cicd-test:latest .
-        docker push ${{ secrets.DOCKER_USERNAME }}/cicd-test:latest
+          IMAGE_TAG=${{ github.sha }}
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/cicd-test:latest -t ${{ secrets.DOCKER_USERNAME }}/cicd-test:$IMAGE_TAG .
+          docker push ${{ secrets.DOCKER_USERNAME }}/cicd-test:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/cicd-test:$IMAGE_TAG
